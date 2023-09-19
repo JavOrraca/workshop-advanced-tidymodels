@@ -12,6 +12,8 @@ We recommend restarting R between each slide deck!
 Setup from deck 4
 
 ```{r}
+options(tidymodels.dark = TRUE)
+
 library(tidymodels)
 library(textrecipes)
 library(bonsai)
@@ -117,7 +119,8 @@ lgbm_bayes_res <-
     initial = init_res,     # <- initial results
     iter = 20,
     param_info = lgbm_param,
-    metrics = reg_metrics
+    metrics = reg_metrics,
+    control = control_bayes(verbose_iter = TRUE)
   )
 
 show_best(lgbm_bayes_res, metric = "mae")

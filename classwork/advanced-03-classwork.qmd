@@ -101,7 +101,6 @@ Try creating a regular grid.
 
 ```{r}
 # Your code here!
-
 ```
 
 ## Your turn 

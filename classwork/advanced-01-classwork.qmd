@@ -53,5 +53,41 @@ Are there any interesting characteristics of the data?
 
 ```{r}
 # Your code here!
+glimpse(hotel_train)
+
+library(skimr)
+skim(hotel_train)
+
+hotel_train |> 
+  summarise(Count = n(), .by = meal) |> 
+  arrange(-Count)
+
+hotel_train |> 
+  ggplot(aes(avg_price_per_room)) + 
+  geom_histogram()
+
+hotel_train |> 
+  ggplot(aes(arrival_date_num, avg_price_per_room)) + 
+  geom_point(alpha = 0.1) +
+  geom_smooth()
+
+summary_by_room_type <- hotel_train |> 
+  mutate(year = stringr::str_sub(arrival_date_num, 1, 4)) |> 
+  summarise(count = n(),
+            avg_price = mean(avg_price_per_room, na.rm = T),
+            lead_time = mean(lead_time, na.rm = T),
+            .by = c(meal, year)) |> 
+  arrange(meal, year)
+
+summary_by_adults <- hotel_train |> 
+  mutate(year = stringr::str_sub(arrival_date_num, 1, 4)) |> 
+  summarise(count = n(),
+            avg_price = mean(avg_price_per_room, na.rm = T),
+            lead_time = mean(lead_time, na.rm = T),
+            .by = c(year, adults)) |> 
+  arrange(adults, year)
+
+hotel_train |> 
+  ggplot(aes(x = avg_price_per_room))
 
 ```
